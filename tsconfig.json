@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "module": "commonjs",
+    // "allowJs": true,
+    "declaration": true,
+    "outDir": "./lib",
+    "strict": true
+  },
+  "include": ["src", "types.d.ts", "test"],
+  "exclude": ["node_modules", "**/__tests__/*"]
+}
