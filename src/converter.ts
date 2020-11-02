@@ -20,6 +20,7 @@ const doc_template = {
     },
   ],
   tags: [],
+  schemes: ["https", "http"],
   paths: {},
   components: {
     schemas: {
@@ -166,14 +167,22 @@ export const parser = (routes: any[]): any => {
     });
 
     let { path, summary, description } = route;
-    paths[path] = {
-      [method]: {
+    if (!paths[path]) {
+      paths[path] = {
+        [method]: {
+          summary,
+          description,
+          parameters,
+          requestBody,
+        },
+      };
+    } else
+      paths[path][method] = {
         summary,
         description,
         parameters,
         requestBody,
-      },
-    };
+      };
   });
   return doc_template;
 };
