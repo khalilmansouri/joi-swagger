@@ -14,7 +14,7 @@ export const routes: Root[] = [
   {
     path: "/client/login",
     method: "GET",
-    summary: "Login endpoint with email and password",
+    summary: "Login endpoint with email and password (1)",
     description: "Login endpoint with email and password ...",
     validations: {
       query: joi.object({
@@ -28,18 +28,18 @@ export const routes: Root[] = [
   },
   {
     method: "GET",
-    summary: "Items details endpoint",
+    summary: "Items details endpoint (2)",
     description: "Items details endpoint ...",
     path: "/items/{itemId}/details",
     validations: {
-      query: joi.object({
+      path: joi.object({
         itemId: joi.string().required().example("2323423423234").description("this is items ID"),
       }),
     },
   },
   {
     method: "POST",
-    summary: "update item in the database ",
+    summary: "update item in the database (3)",
     description: "update items ops ...",
     path: "/items/{itemId}/details",
     validations: {
@@ -51,7 +51,7 @@ export const routes: Root[] = [
   {
     method: "post",
     path: "/{id}",
-    summary: "Update",
+    summary: "Update (4)",
     description: "update description",
     validations: {
       path: joi.object({ id: joi.string().description("user ID").example("qwlk2l3kenr2kalsknfldkns") }),
@@ -82,6 +82,17 @@ export const routes: Root[] = [
           .description("Skills"),
         retired: joi.boolean().truthy("yes").falsy("no").sensitive(true),
         // certificate: joi.binary().encoding("base64"),
+      }),
+    },
+  },
+  {
+    method: "put",
+    summary: "update item in the database (5)",
+    description: "update items ops ...",
+    path: "/items/{itemId}/details",
+    validations: {
+      body: joi.object({
+        itemId: joi.string().required().example("2323423423234").description("this is items ID"),
       }),
     },
   },
