@@ -5,6 +5,11 @@ interface iPaths {
   [key: string]: any;
 }
 
+interface iInof {
+  description: string;
+  version: string;
+  title: string;
+}
 let paths: iPaths = {};
 
 const doc_template = {
@@ -22,22 +27,22 @@ const doc_template = {
   tags: [],
   schemes: ["https", "http"],
   paths: {},
-  components: {
-    schemas: {
-      Error: {
-        type: "object",
-        required: ["code", "err"],
-        properties: {
-          code: {
-            type: "string",
-          },
-          err: {
-            type: "string",
-          },
-        },
-      },
-    },
-  },
+  // components: {
+  //   schemas: {
+  //     Error: {
+  //       type: "object",
+  //       required: ["code", "err"],
+  //       properties: {
+  //         code: {
+  //           type: "string",
+  //         },
+  //         err: {
+  //           type: "string",
+  //         },
+  //       },
+  //     },
+  //   },
+  // },
 };
 
 function joiSchemaToSwaggerSchema(schema: any) {
@@ -111,7 +116,10 @@ function _convertJsonSchemaToSwagger(jsonSchema: any) {
 
 doc_template.paths = paths;
 
-export const parser = (routes: any[]): any => {
+export const parser = (
+  routes: any[],
+  info: iInof = { description: "API dcos", version: "0.0.1", title: "LD" },
+): any => {
   routes.forEach((route) => {
     let method = route.method.toLowerCase();
     let parameters: any[] = [];
@@ -147,7 +155,7 @@ export const parser = (routes: any[]): any => {
         const bodySchema = joiToJson(route.validations[`${key}`]);
         const schema = _convertJsonSchemaToSwagger(bodySchema);
 
-        let contentType = "application/json";
+        let contentType = route.validations["mediaType"] || "application/json";
         const anyBinaryField = _.some(schema.properties, (fieldDefn) => {
           return fieldDefn.format === "binary";
         });
@@ -165,6 +173,20 @@ export const parser = (routes: any[]): any => {
         };
       }
     });
+    let responses: any = {};
+    if (route.responses)
+      Object.keys(route.responses).forEach((response) => {
+        let responseSchema = joiToJson(route.responses[response].schema);
+        let description = route.responses[response].description;
+        let mediaType = route.responses[response].mediaType || "application/json";
+        let schema = _convertJsonSchemaToSwagger(responseSchema);
+        responses[response] = {
+          description,
+          content: {
+            [mediaType]: { schema },
+          },
+        };
+      });
 
     let { path, summary, description } = route;
     if (!paths[path]) {
@@ -174,6 +196,7 @@ export const parser = (routes: any[]): any => {
           description,
           parameters,
           requestBody,
+          responses,
         },
       };
     } else
@@ -182,6 +205,7 @@ export const parser = (routes: any[]): any => {
         description,
         parameters,
         requestBody,
+        responses,
       };
   });
   return doc_template;
