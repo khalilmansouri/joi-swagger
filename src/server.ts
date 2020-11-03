@@ -10,9 +10,7 @@ const staticFiles = new nodeStatic.Server(swaggerStaticFilesPath, { cache: false
 export const listen = (jsonApi: any, PORT = 8080) => {
   require("http")
     .createServer(function (req: any, res: any) {
-      console.log(req.url);
       if (req.url === "/apiJsonDoc") {
-        console.log(req.url);
         res.setHeader("Content-Type", "application/json");
         res.end(JSON.stringify(jsonApi));
       } else
@@ -25,7 +23,7 @@ export const listen = (jsonApi: any, PORT = 8080) => {
           .resume();
     })
     .listen(PORT, (error: Error) => {
-      if (error) console.log("sap");
+      if (error) console.log(error);
       else console.log("API docs server is listening on port :", PORT);
     })
     .on("error", (e: any) => console.log(e));

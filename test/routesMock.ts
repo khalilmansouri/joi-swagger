@@ -1,4 +1,5 @@
 import * as joi from "joi";
+import Joi = require("joi");
 
 interface Root {
   path: string;
@@ -8,6 +9,7 @@ interface Root {
   description?: string;
   validations: any;
   parameters?: any[];
+  responses?: any;
 }
 
 export const routes: Root[] = [
@@ -87,13 +89,38 @@ export const routes: Root[] = [
   },
   {
     method: "put",
-    summary: "update item in the database (5)",
-    description: "update items ops ...",
-    path: "/items/{itemId}/details",
+    summary: "Update item price in the database ",
+    description: "Update item price information",
+    path: "/items/{itemId}/update",
     validations: {
-      body: joi.object({
+      path: joi.object({
         itemId: joi.string().required().example("2323423423234").description("this is items ID"),
       }),
+      body: joi.object({
+        name: joi.string().required().example("Backing souda").description("Items name"),
+        price: joi.number().required().example("15.00").description("Item price"),
+        expiationDate: joi.date().required().example("12/12/2020").description("Item expiration date"),
+      }),
+    },
+    responses: {
+      200: {
+        description: "Returned updated item ????? ",
+        schema: Joi.object({
+          name: joi
+            .string()
+            .required()
+            .example("Backing souda")
+            .description("Items name")
+            .error(new Error("Wrong name")),
+          price: joi.number().required().example("15.00").description("Item price"),
+          expiationDate: joi.date().required().example("12/12/2020").description("Item expiration date"),
+          company: joi.string().example("Foodify").description("Food company name"),
+        }).description("Returned item after update"),
+      },
+      400: {
+        description: "Some error",
+        schema: Joi.string(),
+      },
     },
   },
 ];
