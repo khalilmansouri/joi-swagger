@@ -20,12 +20,12 @@ export const routes: Root[] = [
     description: "Login endpoint with email and password ...",
     validations: {
       query: joi.object({
-        email: joi.string().email().required().example("khalil@mansouri.com").description("user email"),
+        email: joi.string().email().required().example("some@email.com").description("user email"),
         password: joi.string().required().example("0987654321").description("user password"),
       }),
-      // output: {
-      //   200: joi.object({}),
-      // },
+      output: {
+        200: joi.object({}),
+      },
     },
   },
   {
@@ -83,7 +83,7 @@ export const routes: Root[] = [
           .unique()
           .description("Skills"),
         retired: joi.boolean().truthy("yes").falsy("no").sensitive(true),
-        // certificate: joi.binary().encoding("base64"),
+        certificate: joi.binary().encoding("base64"),
       }),
     },
   },
