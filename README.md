@@ -10,7 +10,8 @@ Rest API docs generator based on OPENAPI 3 and swagger-ui
 ## Example
 ```javascript
 
-const joiSwagger = require("joi-swagger")
+const joiSwagger = require("joi-swagger");
+const joi = require("joi")
 
 // routes examples
 const routes[
