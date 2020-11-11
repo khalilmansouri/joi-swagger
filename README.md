@@ -5,6 +5,10 @@ Rest API docs generator based on OPENAPI 3 and swagger-ui
 
 
 ## Installation
+
+[![NPM](https://nodei.co/npm/joi-swagger.png)](https://nodei.co/npm/joi-swagger/)
+
+
 >npm install joi-swagger
 
 ## Example
@@ -18,7 +22,7 @@ const routes[
   {
     path: "/client/login",
     method: "GET",
-    summary: "Login endpoint with email and password (1)",
+    summary: "Login endpoint with email and password",
     description: "Login endpoint with email and password ...",
     validations: {
       query: joi.object({
@@ -32,7 +36,7 @@ const routes[
   },
   {
     method: "GET",
-    summary: "Items details endpoint (2)",
+    summary: "Items details endpoint",
     description: "Items details endpoint ...",
     path: "/items/{itemId}/details",
     validations: {
@@ -43,7 +47,7 @@ const routes[
   },
   {
     method: "POST",
-    summary: "update item in the database (3)",
+    summary: "update item in the database",
     description: "update items ops ...",
     path: "/items/{itemId}/details",
     validations: {
@@ -106,7 +110,7 @@ const routes[
     },
     responses: {
       200: {
-        description: "Returned updated item ????? ",
+        description: "Returned updated item",
         schema: Joi.object({
           name: joi
             .string()
