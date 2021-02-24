@@ -24,8 +24,8 @@
     "index.js"
   ],
   "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "license": "MIT",
+  "author": "Khalil Mansouri <khalil_mansouri@hotmail.fr>",
   "bugs": {
     "url": "https://github.com/khalilmansouri/joi-swagger/issues"
   },
