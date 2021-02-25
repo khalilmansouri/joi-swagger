@@ -1,8 +1,5 @@
-// import { getAbsoluteFSPath } from "swagger-ui-dist";
 import * as path from "path";
 import * as nodeStatic from "node-static";
-
-// import { Validator } from "jsonschema"; // TODO valiate the generate json docs agains openApi 3.0 schmea
 
 const swaggerStaticFilesPath = path.join(__dirname, "../swagger-ui-dist");
 const staticFiles = new nodeStatic.Server(swaggerStaticFilesPath, { cache: false });

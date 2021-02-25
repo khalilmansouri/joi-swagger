@@ -1,4 +1,2 @@
-const { generateDocs } = require("./lib");
-
-require("./lib");
-module.exports = generateDocs;
+const { publishAsHtml, publishToPosman } = require("./lib");
+module.exports = { publishAsHtml, publishToPosman};
